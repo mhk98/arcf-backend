@@ -17,6 +17,7 @@ db.sequelize
 db.user = require("../models/users/user")(db.sequelize, DataTypes);
 db.projects = require("../models/projects/projects")(db.sequelize, DataTypes);
 db.slider = require("../models/slider/slider")(db.sequelize, DataTypes);
+db.faq = require("../models/faq/faq")(db.sequelize, DataTypes);
 
 // db.post.hasMany(db.comment, { foreignkey: "post_Id" });
 // db.comment.belongsTo(db.post, { foreignkey: "post_Id" });
