@@ -2,7 +2,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes, Sequelize) => {
-  const slider = sequelize.define("slider", {
+  const chairman = sequelize.define("chairman", {
     Id: {
       type: DataTypes.INTEGER(10),
       primaryKey: true,
@@ -10,13 +10,16 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
       allowNull: false,
     },
 
-    title: {
-      type: DataTypes.STRING(30),
+    title1: {
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
-
+    title2: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
     text: {
-      type: DataTypes.STRING(255), // Adjust the length as needed
+      type: DataTypes.TEXT,
       allowNull: false,
     },
 
@@ -26,5 +29,5 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
     },
   });
 
-  return slider;
+  return chairman;
 };
