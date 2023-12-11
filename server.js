@@ -8,6 +8,7 @@ require("./models");
 require("dotenv").config();
 const shortid = require("shortid");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 // middlewares
 app.use(cors());
@@ -27,7 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //static image folder
-app.use("/Images", express.static("Images"));
+// app.use("/Images", express.static("Images"));
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // main route
 app.get("/", (req, res) => {
