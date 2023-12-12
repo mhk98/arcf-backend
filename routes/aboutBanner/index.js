@@ -8,6 +8,6 @@ router.get("/", aboutBanner.getAllaboutBanner);
 // router.get("/:id", auth("user", "admin"), report.singleReport);
 router.post("/create-banner", upload, aboutBanner.createaboutBanner);
 router.delete("/:id", aboutBanner.deleteaboutBanner);
-router.put("/:id", upload, aboutBanner.updateaboutBanner);
+router.patch("/:id", upload, aboutBanner.updateaboutBanner);
 
 module.exports = router;

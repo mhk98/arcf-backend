@@ -7,6 +7,6 @@ router.get("/", chairman.getAllchairman);
 // router.get("/:id", auth("user", "admin"), report.singleReport);
 router.post("/create-chairman", upload.single("file"), chairman.createchairman);
 router.delete("/:id", chairman.deletechairman);
-router.put("/:id", upload.single("file"), chairman.updatechairman);
+router.patch("/:id", upload.single("file"), chairman.updatechairman);
 
 module.exports = router;

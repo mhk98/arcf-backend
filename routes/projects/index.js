@@ -6,6 +6,6 @@ router.get("/", projects.getAllprojects);
 // router.get("/:id", auth("user", "admin"), report.singleReport);
 router.post("/create-projects", projects.createprojects);
 // router.delete("/:id", auth("admin"), report.deleteReport);
-// router.put("/:id", auth("admin"), report.updateReport);
+// router.patch("/:id", auth("admin"), report.updateReport);
 
 module.exports = router;

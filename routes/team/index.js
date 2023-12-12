@@ -7,6 +7,6 @@ router.get("/", team.getAllteam);
 // router.get("/:id", auth("user", "admin"), report.singleReport);
 router.post("/create-director", upload.single("file"), team.createteam);
 router.delete("/:id", team.deleteteam);
-router.put("/:id", upload.single("file"), team.updateteam);
+router.patch("/:id", upload.single("file"), team.updateteam);
 
 module.exports = router;

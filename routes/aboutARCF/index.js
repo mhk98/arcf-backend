@@ -5,8 +5,12 @@ const auth = require("../../middlewares/auth");
 
 router.get("/", aboutARCF.getAllaboutARCF);
 // router.get("/:id", auth("user", "admin"), report.singleReport);
-router.post("/create-aboutARCF", upload.single("file"), aboutARCF.createaboutARCF);
+router.post(
+  "/create-aboutARCF",
+  upload.single("file"),
+  aboutARCF.createaboutARCF
+);
 router.delete("/:id", aboutARCF.deleteaboutARCF);
-router.put("/:id", upload.single("file"), aboutARCF.updateaboutARCF);
+router.patch("/:id", upload.single("file"), aboutARCF.updateaboutARCF);
 
 module.exports = router;

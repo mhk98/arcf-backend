@@ -5,6 +5,6 @@ router.get("/", faq.getAllfaq);
 // router.get("/:id", auth("user", "admin"), report.singleReport);
 router.post("/create-faq", faq.createfaq);
 router.delete("/:id", faq.deletefaq);
-router.put("/:id", faq.updatefaq);
+router.patch("/:id", faq.updatefaq);
 
 module.exports = router;
