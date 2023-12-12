@@ -9,6 +9,8 @@ exports.createslider = async (req, res) => {
       text,
       image: req.file.path,
     };
+
+    console.log("slider", data);
     const slider = await Slider.create(data);
 
     res.status(200).send({

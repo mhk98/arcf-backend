@@ -3,12 +3,13 @@ const AboutBanner = db.aboutBanner;
 
 exports.createaboutBanner = async (req, res) => {
   try {
-    const { title, text } = req.body;
+    const { title } = req.body;
     const data = {
       title,
-      text,
       image: req.file.path,
     };
+
+    console.log(title);
     const aboutBanner = await AboutBanner.create(data);
 
     res.status(200).send({
