@@ -46,7 +46,8 @@ exports.getAllslider = async (req, res) => {
 };
 exports.singleslider = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.para
+    s;
 
     const slider = await Slider.findOne({
       where: { Id: id },

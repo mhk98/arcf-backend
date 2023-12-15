@@ -3,10 +3,11 @@ const AboutARCF = db.aboutARCF;
 
 exports.createaboutARCF = async (req, res) => {
   try {
-    const { title, text } = req.body;
+    const { title, text, name } = req.body;
     const data = {
       title,
       text,
+      name,
       image: req.file.path,
     };
     const aboutARCF = await AboutARCF.create(data);
