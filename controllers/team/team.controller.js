@@ -1,7 +1,7 @@
 const db = require("../../models");
-const Slider = db.slider;
+const Team = db.team;
 
-exports.createslider = async (req, res) => {
+exports.createteam = async (req, res) => {
   try {
     const { title, text } = req.body;
     const data = {
@@ -9,14 +9,12 @@ exports.createslider = async (req, res) => {
       text,
       image: req.file.path,
     };
-
-    console.log("slider", data);
-    const slider = await Slider.create(data);
+    const team = await Team.create(data);
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully created slider",
-      data: slider,
+      message: "Successfully created team",
+      data: team,
     });
   } catch (error) {
     res.status(500).json({
@@ -27,14 +25,14 @@ exports.createslider = async (req, res) => {
   }
 };
 
-exports.getAllslider = async (req, res) => {
+exports.getAllteam = async (req, res) => {
   try {
-    const slider = await Slider.findAll();
+    const team = await Team.findAll();
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully got all slider",
-      data: slider,
+      message: "Successfully got all team",
+      data: team,
     });
   } catch (error) {
     res.status(500).json({
@@ -44,52 +42,51 @@ exports.getAllslider = async (req, res) => {
     });
   }
 };
-exports.singleslider = async (req, res) => {
-  try {
-    const { id } = req.para
-    s;
-
-    const slider = await Slider.findOne({
-      where: { Id: id },
-    });
-
-    if (!slider) {
-      return res.status(401).send({
-        status: "fail",
-        message: "No slider found",
-      });
-    }
-    res.status(200).send({
-      status: "Success",
-      message: "Successfully got your slider",
-      data: slider,
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "fail",
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
-exports.deleteslider = async (req, res) => {
+exports.singleteam = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const slider = await Slider.destroy({
+    const team = await Team.findOne({
       where: { Id: id },
     });
 
-    if (!slider) {
+    if (!team) {
       return res.status(401).send({
         status: "fail",
-        message: "No slider found",
+        message: "No team found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully delete your slider",
-      data: slider,
+      message: "Successfully got your team",
+      data: team,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+exports.deleteteam = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const team = await Team.destroy({
+      where: { Id: id },
+    });
+
+    if (!team) {
+      return res.status(401).send({
+        status: "fail",
+        message: "No team found",
+      });
+    }
+    res.status(200).send({
+      status: "Success",
+      message: "Successfully delete your team",
+      data: team,
     });
   } catch (error) {
     res.status(500).json({
@@ -100,7 +97,7 @@ exports.deleteslider = async (req, res) => {
   }
 };
 
-exports.updateslider = async (req, res) => {
+exports.updateteam = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, text } = req.body;
@@ -109,20 +106,20 @@ exports.updateslider = async (req, res) => {
       text,
       image: req.file.path,
     };
-    const slider = await Slider.update(data, {
+    const team = await Team.update(data, {
       where: { Id: id },
     });
 
-    if (!slider) {
+    if (!team) {
       return res.status(401).send({
         status: "fail",
-        message: "No slider found",
+        message: "No team found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully update your slider",
-      data: slider,
+      message: "Successfully update your team",
+      data: team,
     });
   } catch (error) {
     res.status(500).json({

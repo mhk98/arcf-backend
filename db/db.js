@@ -18,6 +18,7 @@ const sequelize = new Sequelize(
     logging: false,
     timezone: "+06:00",
     port: 3306,
+    // port: 3307,
   }
 );
 

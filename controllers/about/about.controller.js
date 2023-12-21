@@ -1,22 +1,22 @@
 const db = require("../../models");
-const Slider = db.slider;
+const About = db.about;
 
-exports.createslider = async (req, res) => {
+exports.createabout = async (req, res) => {
   try {
-    const { title, text } = req.body;
+    const { text1, text2, title } = req.body;
     const data = {
       title,
-      text,
+      text1,
+      text2,
       image: req.file.path,
     };
-
-    console.log("slider", data);
-    const slider = await Slider.create(data);
+    console.log("aboutdata", req.body);
+    const about = await About.create(data);
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully created slider",
-      data: slider,
+      message: "Successfully created about",
+      data: about,
     });
   } catch (error) {
     res.status(500).json({
@@ -27,14 +27,14 @@ exports.createslider = async (req, res) => {
   }
 };
 
-exports.getAllslider = async (req, res) => {
+exports.getAllabout = async (req, res) => {
   try {
-    const slider = await Slider.findAll();
+    const about = await About.findAll();
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully got all slider",
-      data: slider,
+      message: "Successfully got all about",
+      data: about,
     });
   } catch (error) {
     res.status(500).json({
@@ -44,52 +44,51 @@ exports.getAllslider = async (req, res) => {
     });
   }
 };
-exports.singleslider = async (req, res) => {
-  try {
-    const { id } = req.para
-    s;
-
-    const slider = await Slider.findOne({
-      where: { Id: id },
-    });
-
-    if (!slider) {
-      return res.status(401).send({
-        status: "fail",
-        message: "No slider found",
-      });
-    }
-    res.status(200).send({
-      status: "Success",
-      message: "Successfully got your slider",
-      data: slider,
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "fail",
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
-exports.deleteslider = async (req, res) => {
+exports.singleabout = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const slider = await Slider.destroy({
+    const about = await About.findOne({
       where: { Id: id },
     });
 
-    if (!slider) {
+    if (!about) {
       return res.status(401).send({
         status: "fail",
-        message: "No slider found",
+        message: "No about found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully delete your slider",
-      data: slider,
+      message: "Successfully got your about",
+      data: about,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+exports.deleteabout = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const about = await About.destroy({
+      where: { Id: id },
+    });
+
+    if (!about) {
+      return res.status(401).send({
+        status: "fail",
+        message: "No about found",
+      });
+    }
+    res.status(200).send({
+      status: "Success",
+      message: "Successfully delete your about",
+      data: about,
     });
   } catch (error) {
     res.status(500).json({
@@ -100,29 +99,30 @@ exports.deleteslider = async (req, res) => {
   }
 };
 
-exports.updateslider = async (req, res) => {
+exports.updateabout = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, text } = req.body;
+    const { text1, text2, title } = req.body;
     const data = {
+      text1,
+      text2,
       title,
-      text,
       image: req.file.path,
     };
-    const slider = await Slider.update(data, {
+    const about = await About.update(data, {
       where: { Id: id },
     });
 
-    if (!slider) {
+    if (!about) {
       return res.status(401).send({
         status: "fail",
-        message: "No slider found",
+        message: "No about found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully update your slider",
-      data: slider,
+      message: "Successfully update your about",
+      data: about,
     });
   } catch (error) {
     res.status(500).json({
