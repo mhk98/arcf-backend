@@ -12,7 +12,6 @@ const sequelize = new Sequelize(
   // Database connection configuration
   {
     // host: "db4free.net",
-    // host: "localhost",
     host: "sql12.freemysqlhosting.net",
     dialect: "mysql",
     pool: { max: 5, min: 0, idle: 10000 },
