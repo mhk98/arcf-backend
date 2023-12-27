@@ -2,31 +2,28 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes, Sequelize) => {
-  const projects = sequelize.define("projects", {
+  const healthDetails = sequelize.define("healthDetails", {
     Id: {
       type: DataTypes.INTEGER(10),
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-
+ 
     title: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(30),
       allowNull: false,
     },
-
     text: {
-      type: DataTypes.TEXT, // Adjust the length as needed
+      type: DataTypes.TEXT,
       allowNull: false,
-      unique: true,
     },
 
     image: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
   });
 
-  return projects;
+  return healthDetails;
 };

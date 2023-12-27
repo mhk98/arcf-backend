@@ -2,7 +2,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes, Sequelize) => {
-  const projects = sequelize.define("projects", {
+  const health = sequelize.define("health", {
     Id: {
       type: DataTypes.INTEGER(10),
       primaryKey: true,
@@ -28,5 +28,5 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
     },
   });
 
-  return projects;
+  return health;
 };

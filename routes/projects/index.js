@@ -3,9 +3,9 @@ const projects = require("../../controllers/projects/projects.controller");
 const auth = require("../../middlewares/auth");
 
 router.get("/", projects.getAllprojects);
-// router.get("/:id", auth("user", "admin"), report.singleReport);
+router.get("/:id", projects.singleprojects);
 router.post("/create-projects", projects.createprojects);
-// router.delete("/:id", auth("admin"), report.deleteReport);
-// router.patch("/:id", auth("admin"), report.updateReport);
+router.delete("/:id", projects.deleteprojects);
+router.patch("/:id", projects.updateprojects);
 
 module.exports = router;
