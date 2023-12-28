@@ -15,16 +15,9 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
       allowNull: false,
     },
 
-    text: {
-      type: DataTypes.TEXT, // Adjust the length as needed
-      allowNull: false,
-      unique: true,
-    },
-
     image: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
   });
 

@@ -3,7 +3,14 @@ const Projects = db.projects;
 
 exports.createprojects = async (req, res) => {
   try {
-    const projects = await Projects.create(req.body);
+    const { title, text } = req.body;
+
+    const data = {
+      title,
+      text,
+      image: req.file.path,
+    };
+    const projects = await Projects.create(data);
 
     res.status(200).send({
       status: "Success",

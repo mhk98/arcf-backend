@@ -1,9 +1,24 @@
 const db = require("../../models");
 const Health = db.health;
+const Projects = db.projects;
 
 exports.createhealth = async (req, res) => {
   try {
-    const health = await Health.create(req.body);
+    const { id } = req.params;
+    const { title, text } = req.body;
+
+    const projectData = await Projects.findOne({
+      Where: {
+        projectId: id,
+      },
+    });
+    const data = {
+      title,
+      text,
+      image: req.file.path,
+      projectId: projectData.Id,
+    };
+    const health = await Health.create(data);
 
     res.status(200).send({
       status: "Success",

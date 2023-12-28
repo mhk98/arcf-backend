@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const health = require("../../controllers/health/health.controller");
 const auth = require("../../middlewares/auth");
+const { singleUpload } = require("../../middlewares/upload");
 
 router.get("/", health.getAllhealth);
 router.get("/:id", health.singlehealth);
-router.post("/create-health", health.createhealth);
+router.post("/create-health/:id", singleUpload, health.createhealth);
 router.delete("/:id", health.deletehealth);
-router.patch("/:id", health.updatehealth);
+router.patch("/:id", singleUpload, health.updatehealth);
 
 module.exports = router;

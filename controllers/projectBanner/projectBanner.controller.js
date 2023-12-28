@@ -3,10 +3,10 @@ const ProjectBanner = db.projectBanner;
 
 exports.createbanner = async (req, res) => {
   try {
-    const { title, text } = req.body;
+    const { title } = req.body;
     const data = {
       title,
-      text,
+
       image: req.file.path,
     };
 

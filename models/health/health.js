@@ -12,19 +12,17 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
 
     title: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
 
     text: {
       type: DataTypes.TEXT, // Adjust the length as needed
-      allowNull: false,
-      unique: true,
+      allowNull: true,
     },
 
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+      allowNull: true,
     },
   });
 

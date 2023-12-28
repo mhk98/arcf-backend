@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 // Synchronize the database.
 // The `force: false` option means that it will not drop and true option it will drop
 db.sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log("Connection re-synced");
   })
