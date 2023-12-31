@@ -10,6 +10,7 @@ const projectDetails = require("./projectDetails");
 const health = require("./health");
 const healthBanner = require("./healthBanner");
 const healthDetails = require("./healthDetails");
+const healthCategoryDetails = require("./healthCategoryDetails");
 
 router.use("/user", user);
 router.use("/slider", slider);
@@ -22,5 +23,6 @@ router.use("/projectDetails", projectDetails);
 router.use("/health", health);
 router.use("/healthBanner", healthBanner);
 router.use("/healthDetails", healthDetails);
+router.use("/healthCategoryDetails", healthCategoryDetails);
 
 module.exports = router;

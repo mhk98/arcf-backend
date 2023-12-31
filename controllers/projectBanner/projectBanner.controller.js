@@ -7,7 +7,7 @@ exports.createbanner = async (req, res) => {
     const data = {
       title,
 
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
 
     console.log("banner", data);
@@ -46,7 +46,7 @@ exports.getAllbanner = async (req, res) => {
 };
 exports.singlebanner = async (req, res) => {
   try {
-    const { id } = req.para;
+    const { id } = req.params;
     s;
 
     const banner = await ProjectBanner.findOne({
@@ -107,7 +107,7 @@ exports.updatebanner = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const banner = await ProjectBanner.update(data, {
       where: { Id: id },

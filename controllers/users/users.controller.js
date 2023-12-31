@@ -12,7 +12,7 @@ exports.signup = async (req, res) => {
       Name,
       Email,
       Password,
-      Image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
 
     console.log(req.body);

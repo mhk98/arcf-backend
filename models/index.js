@@ -49,13 +49,19 @@ db.healthDetails = require("../models/healthDetails/healthDetails")(
   db.sequelize,
   DataTypes
 );
+db.healthCategoryDetails =
+  require("../models/healthCategoryDetails/healthCategoryDetails")(
+    db.sequelize,
+    DataTypes
+  );
 
-db.projects.hasMany(db.health, { foreignkey: "Id" });
-db.health.belongsTo(db.projects, { foreignkey: "Id" });
-db.projects.hasMany(db.healthBanner, { foreignkey: "Id" });
-db.healthBanner.belongsTo(db.projects, { foreignkey: "Id" });
-db.projects.hasMany(db.healthDetails, { foreignkey: "Id" });
-db.healthDetails.belongsTo(db.projects, { foreignkey: "Id" });
+db.health.hasMany(db.healthCategoryDetails, { foreignkey: "Id" });
+db.healthCategoryDetails.belongsTo(db.health, { foreignkey: "Id" });
+
+// db.projects.hasMany(db.healthBanner, { foreignkey: "Id" });
+// db.healthBanner.belongsTo(db.projects, { foreignkey: "Id" });
+// db.projects.hasMany(db.healthDetails, { foreignkey: "Id" });
+// db.healthDetails.belongsTo(db.projects, { foreignkey: "Id" });
 
 // db.post.hasMany(db.reply, { foreignkey: "post_Id" });
 // db.reply.belongsTo(db.post, { foreignkey: "post_Id" });

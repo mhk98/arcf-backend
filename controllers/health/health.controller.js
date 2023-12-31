@@ -5,8 +5,8 @@ const Projects = db.projects;
 exports.createhealth = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, text } = req.body;
-
+    const { title, text, category } = req.body;
+    console.log("createhealth", id);
     const projectData = await Projects.findOne({
       Where: {
         projectId: id,
@@ -15,8 +15,8 @@ exports.createhealth = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
-      projectId: projectData.Id,
+      category,
+      image: req.file ? req.file.path || "" : "",
     };
     const health = await Health.create(data);
 
@@ -55,8 +55,9 @@ exports.singlehealth = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const health = await Health.findOne({
-      where: { Id: id },
+    console.log("singlehealth", id);
+    const health = await Health.findAll({
+      where: { projectId: id },
     });
 
     if (!health) {

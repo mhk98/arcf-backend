@@ -5,7 +5,7 @@ const { singleUpload } = require("../../middlewares/upload");
 
 router.get("/", health.getAllhealth);
 router.get("/:id", health.singlehealth);
-router.post("/create-health/:id", singleUpload, health.createhealth);
+router.post("/create-health", singleUpload, health.createhealth);
 router.delete("/:id", health.deletehealth);
 router.patch("/:id", singleUpload, health.updatehealth);
 

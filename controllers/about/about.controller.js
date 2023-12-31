@@ -8,7 +8,7 @@ exports.createabout = async (req, res) => {
       title,
       text1,
       text2,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     console.log("aboutdata", req.body);
     const about = await About.create(data);
@@ -107,7 +107,7 @@ exports.updateabout = async (req, res) => {
       text1,
       text2,
       title,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const about = await About.update(data, {
       where: { Id: id },

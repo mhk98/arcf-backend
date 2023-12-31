@@ -8,7 +8,7 @@ exports.createaboutARCF = async (req, res) => {
       title,
       text,
       name,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const aboutARCF = await AboutARCF.create(data);
 
@@ -105,7 +105,7 @@ exports.updateaboutARCF = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const aboutARCF = await AboutARCF.update(data, {
       where: { Id: id },

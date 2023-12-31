@@ -3,7 +3,22 @@ const HealthBanner = db.healthBanner;
 
 exports.createhealthBanner = async (req, res) => {
   try {
-    const healthBanner = await HealthBanner.create(req.body);
+    const { id } = req.params;
+    const { title, category } = req.body;
+
+    // const projectData = await Projects.findOne({
+    //   Where: {
+    //     projectId: id,
+    //   },
+    // });
+
+    const data = {
+      title,
+      category,
+      image: req.file ? req.file.path || "" : "",
+    };
+
+    const healthBanner = await HealthBanner.create(data);
 
     res.status(200).send({
       status: "Success",
@@ -41,9 +56,10 @@ exports.singlehealthBanner = async (req, res) => {
     const { id } = req.params;
 
     const healthBanner = await HealthBanner.findOne({
-      where: { Id: id },
+      where: { category: id },
     });
 
+    console.log(id);
     if (!healthBanner) {
       return res.status(401).send({
         status: "fail",
@@ -66,9 +82,9 @@ exports.singlehealthBanner = async (req, res) => {
 exports.deletehealthBanner = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log("category", id);
     const healthBanner = await HealthBanner.destroy({
-      where: { Id: id },
+      where: { category: id },
     });
 
     if (!healthBanner) {
@@ -94,9 +110,15 @@ exports.deletehealthBanner = async (req, res) => {
 exports.updatehealthBanner = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body;
+
+    console.log("HealthBanner", id);
+    const { title } = req.body;
+    const data = {
+      title,
+      image: req.file ? req.file.path || "" : "",
+    };
     const healthBanner = await HealthBanner.update(data, {
-      where: { Id: id },
+      where: { category: id },
     });
 
     if (!healthBanner) {

@@ -1,9 +1,26 @@
 const db = require("../../models");
 const HealthDetails = db.healthDetails;
+const Projects = db.projects;
 
 exports.createhealthDetails = async (req, res) => {
   try {
-    const healthDetails = await HealthDetails.create(req.body);
+    const { id } = req.params;
+    const { title, text, category } = req.body;
+
+    const projectData = await Projects.findOne({
+      Where: {
+        projectId: id,
+      },
+    });
+
+    const data = {
+      title,
+      text,
+      category,
+      image: req.file ? req.file.path || "" : "",
+    };
+
+    const healthDetails = await HealthDetails.create(data);
 
     res.status(200).send({
       status: "Success",
@@ -41,7 +58,7 @@ exports.singlehealthDetails = async (req, res) => {
     const { id } = req.params;
 
     const healthDetails = await HealthDetails.findOne({
-      where: { Id: id },
+      where: { category: id },
     });
 
     if (!healthDetails) {
@@ -66,9 +83,10 @@ exports.singlehealthDetails = async (req, res) => {
 exports.deletehealthDetails = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("deleteHealthDetails");
 
-    const healthDetails = await healthDetails.destroy({
-      where: { Id: id },
+    const healthDetails = await HealthDetails.destroy({
+      where: { category: id },
     });
 
     if (!healthDetails) {
@@ -94,17 +112,17 @@ exports.deletehealthDetails = async (req, res) => {
 exports.updatehealthDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body;
-    const healthDetails = await healthDetails.update(data, {
-      where: { Id: id },
+    console.log("updatehealthDetails", id);
+    const { title, text } = req.body;
+    const data = {
+      title,
+      text,
+      image: req.file ? req.file.path || "" : "",
+    };
+    const healthDetails = await HealthDetails.update(data, {
+      where: { category: id },
     });
 
-    if (!healthDetails) {
-      return res.status(401).send({
-        status: "fail",
-        message: "No healthDetails found",
-      });
-    }
     res.status(200).send({
       status: "Success",
       message: "Successfully update your healthDetails",

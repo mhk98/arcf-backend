@@ -6,7 +6,7 @@ exports.createaboutBanner = async (req, res) => {
     const { title } = req.body;
     const data = {
       title,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
 
     console.log(title);
@@ -105,7 +105,7 @@ exports.updateaboutBanner = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const aboutBanner = await aboutBanner.update(data, {
       where: { Id: id },

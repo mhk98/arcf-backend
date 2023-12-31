@@ -3,12 +3,15 @@ const Projects = db.projects;
 
 exports.createprojects = async (req, res) => {
   try {
-    const { title, text } = req.body;
+    const { id } = req.params;
+    const { title, text, category } = req.body;
+    console.log("createprojects", req.body);
 
     const data = {
       title,
       text,
-      image: req.file.path,
+      category,
+      image: req.file ? req.file.path || "" : "",
     };
     const projects = await Projects.create(data);
 
@@ -101,7 +104,12 @@ exports.deleteprojects = async (req, res) => {
 exports.updateprojects = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body;
+    const { title, text } = req.body;
+    const data = {
+      title,
+      text,
+      image: req.file ? req.file.path || "" : "",
+    };
     const projects = await Projects.update(data, {
       where: { Id: id },
     });

@@ -7,7 +7,7 @@ exports.createchairman = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const chairman = await Chairman.create(data);
 
@@ -104,7 +104,7 @@ exports.updatechairman = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const chairman = await Chairman.update(data, {
       where: { Id: id },

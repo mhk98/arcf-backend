@@ -14,6 +14,15 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
+    text: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+
+    category: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
 
     image: {
       type: DataTypes.STRING,

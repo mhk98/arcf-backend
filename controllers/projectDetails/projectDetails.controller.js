@@ -7,7 +7,7 @@ exports.createprojectDetails = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
 
     console.log("projectDetails", data);
@@ -46,7 +46,7 @@ exports.getAllprojectDetails = async (req, res) => {
 };
 exports.singleprojectDetails = async (req, res) => {
   try {
-    const { id } = req.para;
+    const { id } = req.params;
     s;
 
     const projectDetails = await ProjectDetails.findOne({
@@ -107,7 +107,7 @@ exports.updateprojectDetails = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const projectDetails = await ProjectDetails.update(data, {
       where: { Id: id },

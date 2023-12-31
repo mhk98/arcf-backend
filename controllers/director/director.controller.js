@@ -7,7 +7,7 @@ exports.createdirector = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const director = await Director.create(data);
 
@@ -104,7 +104,7 @@ exports.updatedirector = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const director = await Director.update(data, {
       where: { Id: id },

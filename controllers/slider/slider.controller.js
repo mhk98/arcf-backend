@@ -7,7 +7,7 @@ exports.createslider = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
 
     console.log("slider", data);
@@ -46,7 +46,7 @@ exports.getAllslider = async (req, res) => {
 };
 exports.singleslider = async (req, res) => {
   try {
-    const { id } = req.para
+    const { id } = req.para;
     s;
 
     const slider = await Slider.findOne({
@@ -107,7 +107,7 @@ exports.updateslider = async (req, res) => {
     const data = {
       title,
       text,
-      image: req.file.path,
+      image: req.file ? req.file.path || "" : "",
     };
     const slider = await Slider.update(data, {
       where: { Id: id },
