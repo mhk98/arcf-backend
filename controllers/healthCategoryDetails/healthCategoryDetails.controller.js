@@ -53,7 +53,8 @@ exports.singlehealthCategoryDetails = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const healthCategoryDetails = await HealthCategoryDetails.findAll({
+    console.log("healthParams", id);
+    const healthCategoryDetails = await HealthCategoryDetails.findOne({
       where: { healthId: id },
     });
 
