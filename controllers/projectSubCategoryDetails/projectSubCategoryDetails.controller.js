@@ -1,27 +1,32 @@
 const db = require("../../models");
-const HealthCategoryDetails = db.healthCategoryDetails;
-const Health = db.health;
+const ProjectSubCategoryDetails = db.projectSubCategoryDetails;
+const ProjectSubCategory = db.projectSubCategory;
+const Projects = db.projects;
 
-exports.createhealthCategoryDetails = async (req, res) => {
+exports.createProjectSubCategoryDetails = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { projectId, subCategoryId } = req.params;
     const { title, attributeName, category } = req.body;
 
-    const healthData = await Health.findOne({ where: { Id: id } });
+    const projectData = await Projects.findOne({ where: { Id: projectId } });
+    const projectSubCategory = await ProjectSubCategory.findOne({
+      where: { Id: subCategoryId },
+    });
     const data = {
-      healthId: healthData.Id,
+      projectId: projectData.Id,
+      projectSubCategoryId: projectSubCategory.Id,
       title,
       category,
       attributeName,
       image: req.file ? req.file.path || "" : "",
     };
 
-    const healthCategoryDetails = await HealthCategoryDetails.create(data);
+    const result = await ProjectSubCategoryDetails.create(data);
 
     res.status(200).send({
       status: "Success",
       message: "Successfully created healthCategoryDetails",
-      data: healthCategoryDetails,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -32,14 +37,14 @@ exports.createhealthCategoryDetails = async (req, res) => {
   }
 };
 
-exports.getAllhealthCategoryDetails = async (req, res) => {
+exports.getAllProjectSubCategoryDetails = async (req, res) => {
   try {
-    const healthCategoryDetails = await HealthCategoryDetails.findAll();
+    const result = await ProjectSubCategoryDetails.findAll();
 
     res.status(200).send({
       status: "Success",
       message: "Successfully got all healthCategoryDetails",
-      data: healthCategoryDetails,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -49,16 +54,16 @@ exports.getAllhealthCategoryDetails = async (req, res) => {
     });
   }
 };
-exports.singlehealthCategoryDetails = async (req, res) => {
+exports.singleProjectSubCategoryDetails = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { projectId, subCategoryId } = req.params;
 
     console.log("healthParams", id);
-    const healthCategoryDetails = await HealthCategoryDetails.findOne({
-      where: { healthId: id },
+    const result = await ProjectSubCategoryDetails.findOne({
+      where: { projectId: projectId, subCategoryId: subCategoryId },
     });
 
-    if (!healthCategoryDetails) {
+    if (!result) {
       return res.status(401).send({
         status: "fail",
         message: "No healthCategoryDetails found",
@@ -67,7 +72,7 @@ exports.singlehealthCategoryDetails = async (req, res) => {
     res.status(200).send({
       status: "Success",
       message: "Successfully got your healthCategoryDetails",
-      data: healthCategoryDetails,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -77,13 +82,12 @@ exports.singlehealthCategoryDetails = async (req, res) => {
     });
   }
 };
-exports.deletehealthCategoryDetails = async (req, res) => {
+exports.deleteProjectSubCategoryDetails = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { projectId, subCategoryId } = req.params;
 
-    console.log("healthId", id);
-    const healthCategoryDetails = await HealthCategoryDetails.destroy({
-      where: { healthId: id },
+    const healthCategoryDetails = await ProjectSubCategoryDetails.destroy({
+      where: { projectId: projectId, subCategoryId: subCategoryId },
     });
 
     res.status(200).send({
@@ -100,9 +104,9 @@ exports.deletehealthCategoryDetails = async (req, res) => {
   }
 };
 
-exports.updatehealthCategoryDetails = async (req, res) => {
+exports.updateProjectSubCategoryDetails = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { projectId, subCategoryId } = req.params;
 
     const { title, attributeName, category } = req.body;
     const data = {
@@ -111,14 +115,14 @@ exports.updatehealthCategoryDetails = async (req, res) => {
       attributeName,
       image: req.file ? req.file.path || "" : "",
     };
-    const healthCategoryDetails = await HealthCategoryDetails.update(data, {
-      where: { healthId: id },
+    const result = await ProjectSubCategoryDetails.update(data, {
+      where: { projectId: projectId, subCategoryId: subCategoryId },
     });
 
     res.status(200).send({
       status: "Success",
       message: "Successfully update your healthCategoryDetails",
-      data: healthCategoryDetails,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({

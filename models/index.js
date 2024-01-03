@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 // Synchronize the database.
 // The `force: false` option means that it will not drop and true option it will drop
 db.sequelize
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     console.log("Connection re-synced");
   })
@@ -39,24 +39,37 @@ db.projectDetails = require("../models/projectDetails/projectDetails")(
   db.sequelize,
   DataTypes
 );
-db.health = require("../models/health/health")(db.sequelize, DataTypes);
-
-db.healthBanner = require("../models/healthBanner/healthBanner")(
-  db.sequelize,
-  DataTypes
-);
-db.healthDetails = require("../models/healthDetails/healthDetails")(
-  db.sequelize,
-  DataTypes
-);
-db.healthCategoryDetails =
-  require("../models/healthCategoryDetails/healthCategoryDetails")(
+db.projectSubCategory =
+  require("../models/projectSubCategory/projectSubCategory")(
     db.sequelize,
     DataTypes
   );
 
-db.health.hasMany(db.healthCategoryDetails, { foreignkey: "Id" });
-db.healthCategoryDetails.belongsTo(db.health, { foreignkey: "Id" });
+// db.healthBanner = require("../models/healthBanner/healthBanner")(
+//   db.sequelize,
+//   DataTypes
+// );
+// db.healthDetails = require("../models/healthDetails/healthDetails")(
+//   db.sequelize,
+//   DataTypes
+// );
+db.projectSubCategoryDetails =
+  require("../models/projectSubCategoryDetails/projectSubCategoryDetails")(
+    db.sequelize,
+    DataTypes
+  );
+
+db.projectSubCategory.hasMany(db.projectSubCategoryDetails, {
+  foreignkey: "Id",
+});
+db.projectSubCategoryDetails.belongsTo(db.projectSubCategory, {
+  foreignkey: "Id",
+});
+db.projects.hasMany(db.projectSubCategoryDetails, { foreignkey: "Id" });
+db.projectSubCategoryDetails.belongsTo(db.projects, { foreignkey: "Id" });
+
+db.projects.hasMany(db.projectSubCategory, { foreignkey: "Id" });
+db.projectSubCategory.belongsTo(db.projects, { foreignkey: "Id" });
 
 // db.projects.hasMany(db.healthBanner, { foreignkey: "Id" });
 // db.healthBanner.belongsTo(db.projects, { foreignkey: "Id" });

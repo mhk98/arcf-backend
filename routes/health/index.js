@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const health = require("../../controllers/health/health.controller");
+const health = require("../../controllers/projectSubCategory/projectSubCategory.controller");
 const auth = require("../../middlewares/auth");
 const { singleUpload } = require("../../middlewares/upload");
 
