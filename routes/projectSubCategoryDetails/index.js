@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const projectSubCategoryDetails = require("../../controllers/projectSubCategoryDetails/projectSubCategoryDetails.controller");
 const auth = require("../../middlewares/auth");
-const { multipleUpload } = require("../../middlewares/upload");
+const { multipleUpload, singleUpload } = require("../../middlewares/upload");
 
 router.get("/", projectSubCategoryDetails.getAllProjectSubCategoryDetails);
 router.get("/:id", projectSubCategoryDetails.singleProjectSubCategoryDetails);
 router.post(
-  "/create-projectSubCategory",
-  multipleUpload,
+  "/create-projectSubCategory/:projectId/:projectSubCategoryId",
+  singleUpload,
   projectSubCategoryDetails.createProjectSubCategoryDetails
 );
 router.delete(
@@ -16,7 +16,7 @@ router.delete(
 );
 router.patch(
   "/:id",
-  multipleUpload,
+  singleUpload,
   projectSubCategoryDetails.updateProjectSubCategoryDetails
 );
 

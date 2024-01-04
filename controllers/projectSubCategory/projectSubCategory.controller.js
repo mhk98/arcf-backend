@@ -5,25 +5,30 @@ const Projects = db.projects;
 exports.createProjectSubCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, text, category } = req.body;
-
+    const { detailsTitle, detailsContent, title, text, category } = req.body;
+    const { image1, image2, image3 } = req.files;
     const projectData = await Projects.findOne({
       Where: {
-        projectId: id,
+        Id: id,
       },
     });
     const data = {
+      detailsTitle,
+      detailsContent,
       title,
       text,
       category,
-      image: req.file ? req.file.path || "" : "",
+      image: req.file.path,
+      projectId: projectData.Id,
     };
-    const ProjectSubCategory = await ProjectSubCategory.create(data);
+
+    console.log("createCategoryData", req.body);
+    const result = await ProjectSubCategory.create(data);
 
     res.status(200).send({
       status: "Success",
       message: "Successfully created ProjectSubCategory",
-      data: ProjectSubCategory,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -36,12 +41,12 @@ exports.createProjectSubCategory = async (req, res) => {
 
 exports.getAllProjectSubCategory = async (req, res) => {
   try {
-    const projectSubCategory = await ProjectSubCategory.findAll();
+    const result = await ProjectSubCategory.findAll();
 
     res.status(200).send({
       status: "Success",
       message: "Successfully got all health",
-      data: projectSubCategory,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -55,7 +60,7 @@ exports.singleProjectSubCategory = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const projectSubCategory = await ProjectSubCategory.findAll({
+    const result = await ProjectSubCategory.findAll({
       where: { projectId: id },
     });
 
@@ -68,7 +73,7 @@ exports.singleProjectSubCategory = async (req, res) => {
     res.status(200).send({
       status: "Success",
       message: "Successfully got your health",
-      data: projectSubCategory,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -82,11 +87,11 @@ exports.deleteProjectSubCategory = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const projectSubCategory = await ProjectSubCategory.destroy({
+    const result = await ProjectSubCategory.destroy({
       where: { Id: id },
     });
 
-    if (!projectSubCategory) {
+    if (!result) {
       return res.status(401).send({
         status: "fail",
         message: "No health found",
@@ -95,7 +100,7 @@ exports.deleteProjectSubCategory = async (req, res) => {
     res.status(200).send({
       status: "Success",
       message: "Successfully delete your health",
-      data: projectSubCategory,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({
@@ -110,11 +115,11 @@ exports.updateProjectSubCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const projectSubCategory = await ProjectSubCategory.update(data, {
+    const result = await ProjectSubCategory.update(data, {
       where: { Id: id },
     });
 
-    if (!projectSubCategory) {
+    if (!result) {
       return res.status(401).send({
         status: "fail",
         message: "No health found",
@@ -123,7 +128,7 @@ exports.updateProjectSubCategory = async (req, res) => {
     res.status(200).send({
       status: "Success",
       message: "Successfully update your health",
-      data: projectSubCategory,
+      data: result,
     });
   } catch (error) {
     res.status(500).json({

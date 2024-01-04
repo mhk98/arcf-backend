@@ -6,7 +6,15 @@ const Projects = db.projects;
 exports.createProjectSubCategoryDetails = async (req, res) => {
   try {
     const { projectId, subCategoryId } = req.params;
-    const { title, attributeName, category } = req.body;
+    const {
+      title,
+      attributeName,
+      detailsTitle,
+      detailsContent,
+      text,
+      category,
+    } = req.body;
+    const { image1, image2, image3 } = req.files;
 
     const projectData = await Projects.findOne({ where: { Id: projectId } });
     const projectSubCategory = await ProjectSubCategory.findOne({
@@ -18,7 +26,12 @@ exports.createProjectSubCategoryDetails = async (req, res) => {
       title,
       category,
       attributeName,
-      image: req.file ? req.file.path || "" : "",
+      detailsTitle,
+      detailsContent,
+      text,
+      image1: image1[0].path || "",
+      image2: image2[0].path || "",
+      image3: image3[0].path || "",
     };
 
     const result = await ProjectSubCategoryDetails.create(data);
