@@ -12,15 +12,6 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         allowNull: false,
       },
 
-      detailsTitle: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
-      },
-
-      detailsContent: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
       title: {
         type: DataTypes.STRING(255),
         allowNull: true,
@@ -36,11 +27,14 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         allowNull: true,
       },
 
-      image: {
+      image1: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-     
+      image2: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     }
   );
 

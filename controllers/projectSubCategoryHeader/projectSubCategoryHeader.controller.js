@@ -1,12 +1,12 @@
 const db = require("../../models");
-const ProjectSubCategory = db.projectSubCategory;
+const ProjectSubCategoryHeader = db.projectSubCategoryHeader;
 const Projects = db.projects;
 
-exports.createProjectSubCategory = async (req, res) => {
+exports.createProjectSubCategoryHeader = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, text, category } = req.body;
-
+    const { image1, image2 } = req.files;
     const projectData = await Projects.findOne({
       Where: {
         Id: id,
@@ -16,16 +16,17 @@ exports.createProjectSubCategory = async (req, res) => {
       title,
       text,
       category,
-      image: req.file.path,
+      image1: image1[0].path,
+      image2: image2[0].path,
       projectId: projectData.Id,
     };
 
     console.log("createCategoryData", req.body);
-    const result = await ProjectSubCategory.create(data);
+    const result = await ProjectSubCategoryHeader.create(data);
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully created ProjectSubCategory",
+      message: "Successfully created ProjectSubCategoryHeader",
       data: result,
     });
   } catch (error) {
@@ -37,13 +38,13 @@ exports.createProjectSubCategory = async (req, res) => {
   }
 };
 
-exports.getAllProjectSubCategory = async (req, res) => {
+exports.getAllProjectSubCategoryHeader = async (req, res) => {
   try {
-    const result = await ProjectSubCategory.findAll();
+    const result = await ProjectSubCategoryHeader.findAll();
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully got all health",
+      message: "Successfully got all ProjectSubCategoryHeader",
       data: result,
     });
   } catch (error) {
@@ -54,23 +55,23 @@ exports.getAllProjectSubCategory = async (req, res) => {
     });
   }
 };
-exports.singleProjectSubCategory = async (req, res) => {
+exports.singleProjectSubCategoryHeader = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await ProjectSubCategory.findAll({
+    const result = await ProjectSubCategoryHeader.findAll({
       where: { projectId: id },
     });
 
     if (!result) {
       return res.status(401).send({
         status: "fail",
-        message: "No health found",
+        message: "No ProjectSubCategoryHeader found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully got your health",
+      message: "Successfully got your ProjectSubCategoryHeader",
       data: result,
     });
   } catch (error) {
@@ -81,23 +82,23 @@ exports.singleProjectSubCategory = async (req, res) => {
     });
   }
 };
-exports.deleteProjectSubCategory = async (req, res) => {
+exports.deleteProjectSubCategoryHeader = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await ProjectSubCategory.destroy({
+    const result = await ProjectSubCategoryHeader.destroy({
       where: { Id: id },
     });
 
     if (!result) {
       return res.status(401).send({
         status: "fail",
-        message: "No health found",
+        message: "No ProjectSubCategoryHeader found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully delete your health",
+      message: "Successfully delete your ProjectSubCategoryHeader",
       data: result,
     });
   } catch (error) {
@@ -109,23 +110,37 @@ exports.deleteProjectSubCategory = async (req, res) => {
   }
 };
 
-exports.updateProjectSubCategory = async (req, res) => {
+exports.updateProjectSubCategoryHeader = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body;
-    const result = await ProjectSubCategory.update(data, {
+    const { title, text, category } = req.body;
+    const { image1, image2 } = req.files;
+    const projectData = await Projects.findOne({
+      Where: {
+        Id: id,
+      },
+    });
+    const data = {
+      title,
+      text,
+      category,
+      image1: image1[0].path,
+      image2: image2[0].path,
+      projectId: projectData.Id,
+    };
+    const result = await ProjectSubCategoryHeader.update(data, {
       where: { Id: id },
     });
 
     if (!result) {
       return res.status(401).send({
         status: "fail",
-        message: "No health found",
+        message: "No ProjectSubCategoryHeader found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully update your health",
+      message: "Successfully update your ProjectSubCategoryHeader",
       data: result,
     });
   } catch (error) {

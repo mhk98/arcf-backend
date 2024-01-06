@@ -14,6 +14,7 @@ const healthBanner = require("./healthBanner");
 const projectSubCategory = require("./projectSubCategory");
 
 const projectSubCategoryDetails = require("./projectSubCategoryDetails");
+const projectSubCategoryHeader = require("./projectSubCategoryHeader");
 
 router.use("/user", user);
 router.use("/slider", slider);
@@ -29,5 +30,6 @@ router.use("/healthBanner", healthBanner);
 // router.use("/healthCategoryDetails", healthCategoryDetails);
 router.use("/projectSubCategory", projectSubCategory);
 router.use("/projectSubCategoryDetails", projectSubCategoryDetails);
+router.use("/projectSubCategoryHeader", projectSubCategoryHeader);
 
 module.exports = router;

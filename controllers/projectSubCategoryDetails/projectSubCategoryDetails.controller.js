@@ -6,15 +6,8 @@ const Projects = db.projects;
 exports.createProjectSubCategoryDetails = async (req, res) => {
   try {
     const { projectId, subCategoryId } = req.params;
-    const {
-      title,
-      attributeName,
-      detailsTitle,
-      detailsContent,
-      text,
-      category,
-    } = req.body;
-    const { image1, image2, image3 } = req.files;
+    const { image1, image2 } = req.files;
+    const { title, attributeName, text, category } = req.body;
 
     const projectData = await Projects.findOne({ where: { Id: projectId } });
     const projectSubCategory = await ProjectSubCategory.findOne({
@@ -26,12 +19,8 @@ exports.createProjectSubCategoryDetails = async (req, res) => {
       title,
       category,
       attributeName,
-      detailsTitle,
-      detailsContent,
-      text,
-      image1: image1[0].path || "",
-      image2: image2[0].path || "",
-      image3: image3[0].path || "",
+      image1: image1[0].path,
+      image2: image2[0].path,
     };
 
     const result = await ProjectSubCategoryDetails.create(data);
@@ -71,9 +60,10 @@ exports.singleProjectSubCategoryDetails = async (req, res) => {
   try {
     const { projectId, subCategoryId } = req.params;
 
-    console.log("healthParams", id);
+    console.log("params", projectId, subCategoryId);
+
     const result = await ProjectSubCategoryDetails.findOne({
-      where: { projectId: projectId, subCategoryId: subCategoryId },
+      where: { projectId: projectId, projectSubCategoryId: subCategoryId },
     });
 
     if (!result) {
@@ -120,13 +110,21 @@ exports.deleteProjectSubCategoryDetails = async (req, res) => {
 exports.updateProjectSubCategoryDetails = async (req, res) => {
   try {
     const { projectId, subCategoryId } = req.params;
-
+    const { image1, image2 } = req.files;
     const { title, attributeName, category } = req.body;
+
+    const projectData = await Projects.findOne({ where: { Id: projectId } });
+    const projectSubCategory = await ProjectSubCategory.findOne({
+      where: { Id: subCategoryId },
+    });
     const data = {
+      projectId: projectData.Id,
+      projectSubCategoryId: projectSubCategory.Id,
       title,
       category,
       attributeName,
-      image: req.file ? req.file.path || "" : "",
+      image1: image1[0].path,
+      image2: image2[0].path,
     };
     const result = await ProjectSubCategoryDetails.update(data, {
       where: { projectId: projectId, subCategoryId: subCategoryId },
