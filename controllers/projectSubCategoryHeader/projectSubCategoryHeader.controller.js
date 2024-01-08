@@ -6,6 +6,7 @@ exports.createProjectSubCategoryHeader = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, text, category } = req.body;
+
     const { image1, image2 } = req.files;
     const projectData = await Projects.findOne({
       Where: {
@@ -20,13 +21,14 @@ exports.createProjectSubCategoryHeader = async (req, res) => {
       image2: image2[0].path,
       projectId: projectData.Id,
     };
+    console.log("data", data);
 
-    console.log("createCategoryData", req.body);
+    // console.log("createCategoryData", req.body);
     const result = await ProjectSubCategoryHeader.create(data);
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully created ProjectSubCategoryHeader",
+      message: "Successfully created ProjectSubCategory",
       data: result,
     });
   } catch (error) {
@@ -44,7 +46,7 @@ exports.getAllProjectSubCategoryHeader = async (req, res) => {
 
     res.status(200).send({
       status: "Success",
-      message: "Successfully got all ProjectSubCategoryHeader",
+      message: "Successfully got all health",
       data: result,
     });
   } catch (error) {
@@ -66,12 +68,12 @@ exports.singleProjectSubCategoryHeader = async (req, res) => {
     if (!result) {
       return res.status(401).send({
         status: "fail",
-        message: "No ProjectSubCategoryHeader found",
+        message: "No health found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully got your ProjectSubCategoryHeader",
+      message: "Successfully got your health",
       data: result,
     });
   } catch (error) {
@@ -93,12 +95,12 @@ exports.deleteProjectSubCategoryHeader = async (req, res) => {
     if (!result) {
       return res.status(401).send({
         status: "fail",
-        message: "No ProjectSubCategoryHeader found",
+        message: "No health found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully delete your ProjectSubCategoryHeader",
+      message: "Successfully delete your health",
       data: result,
     });
   } catch (error) {
@@ -113,21 +115,7 @@ exports.deleteProjectSubCategoryHeader = async (req, res) => {
 exports.updateProjectSubCategoryHeader = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, text, category } = req.body;
-    const { image1, image2 } = req.files;
-    const projectData = await Projects.findOne({
-      Where: {
-        Id: id,
-      },
-    });
-    const data = {
-      title,
-      text,
-      category,
-      image1: image1[0].path,
-      image2: image2[0].path,
-      projectId: projectData.Id,
-    };
+    const data = req.body;
     const result = await ProjectSubCategoryHeader.update(data, {
       where: { Id: id },
     });
@@ -135,12 +123,12 @@ exports.updateProjectSubCategoryHeader = async (req, res) => {
     if (!result) {
       return res.status(401).send({
         status: "fail",
-        message: "No ProjectSubCategoryHeader found",
+        message: "No health found",
       });
     }
     res.status(200).send({
       status: "Success",
-      message: "Successfully update your ProjectSubCategoryHeader",
+      message: "Successfully update your health",
       data: result,
     });
   } catch (error) {

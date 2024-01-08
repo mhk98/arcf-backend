@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         allowNull: true,
       },
 
-      attributeName: {
+      text: {
         type: DataTypes.TEXT,
         allowNull: true,
       },
