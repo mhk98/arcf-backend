@@ -58,6 +58,11 @@ db.projectSubCategoryDetails =
     db.sequelize,
     DataTypes
   );
+db.projectSubCategoryDescription =
+  require("../models/projectSubCategoryDescription/projectSubCategoryDescription")(
+    db.sequelize,
+    DataTypes
+  );
 db.projectSubCategoryDetailsHeader =
   require("./projectSubCategoryDetailsHeader/projectSubCategoryDetailsHeader")(
     db.sequelize,
@@ -76,6 +81,7 @@ db.projectSubCategory.hasMany(db.projectSubCategoryDetails, {
 db.projectSubCategoryDetails.belongsTo(db.projectSubCategory, {
   foreignkey: "Id",
 });
+
 db.projects.hasMany(db.projectSubCategoryDetails, { foreignkey: "Id" });
 db.projectSubCategoryDetails.belongsTo(db.projects, { foreignkey: "Id" });
 
@@ -87,6 +93,16 @@ db.projectSubCategoryHeader.belongsTo(db.projects, { foreignkey: "Id" });
 
 db.projects.hasMany(db.projectSubCategoryDetailsHeader, { foreignkey: "Id" });
 db.projectSubCategoryDetailsHeader.belongsTo(db.projects, { foreignkey: "Id" });
+
+db.projects.hasMany(db.projectSubCategoryDescription, { foreignkey: "Id" });
+db.projectSubCategoryDescription.belongsTo(db.projects, { foreignkey: "Id" });
+
+db.projectSubCategory.hasMany(db.projectSubCategoryDescription, {
+  foreignkey: "Id",
+});
+db.projectSubCategoryDescription.belongsTo(db.projectSubCategory, {
+  foreignkey: "Id",
+});
 
 // db.projects.hasMany(db.healthBanner, { foreignkey: "Id" });
 // db.healthBanner.belongsTo(db.projects, { foreignkey: "Id" });

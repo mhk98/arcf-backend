@@ -16,6 +16,7 @@ const projectSubCategory = require("./projectSubCategory");
 const projectSubCategoryDetails = require("./projectSubCategoryDetails");
 const projectSubCategoryHeader = require("./projectSubCategoryHeader");
 const projectSubCategoryDetailsHeader = require("./projectSubCategoryDetailsHeader");
+const ProjectSubCategoryDescription = require("./projectSubCategoryDescription");
 
 router.use("/user", user);
 router.use("/slider", slider);
@@ -33,5 +34,6 @@ router.use("/projectSubCategory", projectSubCategory);
 router.use("/projectSubCategoryDetails", projectSubCategoryDetails);
 router.use("/projectSubCategoryHeader", projectSubCategoryHeader);
 router.use("/projectSubCategoryDetailsHeader", projectSubCategoryDetailsHeader);
+router.use("/ProjectSubCategoryDescription", ProjectSubCategoryDescription);
 
 module.exports = router;

@@ -3,7 +3,7 @@ const projectSubCategory = require("../../controllers/projectSubCategory/project
 const auth = require("../../middlewares/auth");
 const { singleUpload } = require("../../middlewares/upload");
 
-// router.get("/", projectSubCategory.getAllProjectSubCategory);
+router.get("/", projectSubCategory.getAllProjectSubCategory);
 router.get("/:id", projectSubCategory.singleProjectSubCategory);
 router.post(
   "/create-projectSubCategory/:id",
